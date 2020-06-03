@@ -99,3 +99,4 @@
   Silicon/RISC-V/ProcessorPkg/Universal/CpuDxe/CpuDxe.inf
   Silicon/RISC-V/ProcessorPkg/Universal/SmbiosDxe/RiscVSmbiosDxe.inf
   Silicon/RISC-V/ProcessorPkg/Universal/FdtPei/FdtPei.inf
+  Silicon/RISC-V/ProcessorPkg/Universal/FdtDxe/FdtDxe.inf
