@@ -390,6 +390,8 @@
       PcdLib|MdePkg/Library/PeiPcdLib/PeiPcdLib.inf
   }
 
+  Silicon/RISC-V/ProcessorPkg/Universal/FdtPei/FdtPei.inf
+
   #
   # DXE Phase modules
   #
