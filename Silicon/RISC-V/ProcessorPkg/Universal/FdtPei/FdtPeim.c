@@ -7,7 +7,12 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
 
+#include <Base.h>
 #include <libfdt.h>
+#include <Library/DebugLib.h>
+#include <Library/HobLib.h>
+#include <Library/RiscVEdk2SbiLib.h>
+#include <IndustryStandard/RiscVOpensbi.h>
 
 /**
   TODO
@@ -54,7 +59,6 @@ PeimPassFdt (
   )
 {
   EFI_STATUS                          Status;
-  UINTN                               ThisHartid;
   EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *FirmwareContext;
 
   Status = SbiGetFirmwareContext (&FirmwareContext);

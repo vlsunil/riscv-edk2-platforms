@@ -29,16 +29,20 @@
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
+  EmbeddedPkg/EmbeddedPkg.dec
+  Silicon/RISC-V/ProcessorPkg/RiscVProcessorPkg.dec
 
 [LibraryClasses]
-  RiscVEdk2SbiLib
   DebugLib
-  #BaseMemoryLib
-  #PeiServicesLib
-  #PeimEntryPoint
+  FdtLib
+  HobLib
+  PeimEntryPoint
+  RiscVEdk2SbiLib
+  BaseMemoryLib
+  PeiServicesLib
 
 [Guids]
   gRiscVFlattenedDeviceTreeHobGuid              ## PRODUCES
 
 [Depex]
-  ???
+  TRUE
