@@ -153,6 +153,7 @@ INF  Platform/SiFive/U5SeriesPkg/Universal/Dxe/RamFvbServicesRuntimeDxe/FvbServi
 INF  Platform/SiFive/U5SeriesPkg/Universal/Dxe/TimerDxe/TimerDxe.inf
 INF  Silicon/RISC-V/ProcessorPkg/Universal/CpuDxe/CpuDxe.inf
 INF  Silicon/RISC-V/ProcessorPkg/Universal/SmbiosDxe/RiscVSmbiosDxe.inf
+INF  Silicon/RISC-V/ProcessorPkg/Universal/FdtDxe/FdtDxe.inf
 
 INF  MdeModulePkg/Universal/FaultTolerantWriteDxe/FaultTolerantWriteDxe.inf
 

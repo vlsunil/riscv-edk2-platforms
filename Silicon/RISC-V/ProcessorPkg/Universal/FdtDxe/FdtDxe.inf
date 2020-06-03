@@ -25,8 +25,8 @@
   EmbeddedPkg/EmbeddedPkg.dec
   MdeModulePkg/MdeModulePkg.dec
   MdePkg/MdePkg.dec
-  RiscVPkg/RiscVPkg.dec
-  RiscVPlatformPkg/RiscVPlatformPkg.dec
+  Silicon/RISC-V/ProcessorPkg/RiscVProcessorPkg.dec
+  Platform/RISC-V/PlatformPkg/RiscVPlatformPkg.dec
 
 [LibraryClasses]
   BaseLib
@@ -43,8 +43,8 @@
   FdtDxe.c
 
 [Guids]
-  gRiscVDtbHobGuid
-  gFdtTableGuid
+  gRiscVFlattenedDeviceTreeHobGuid                   ## CONSUMES
+  gFdtTableGuid                                      ## CONSUMES
 
 [Pcd]
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId  ## CONSUMES
