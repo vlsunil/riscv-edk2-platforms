@@ -47,5 +47,24 @@ PeiFvInitialization (
     NULL
     );
 
+  //
+  // Let DXE know about the ESP Ramdisk FV
+  //
+  BuildFvHob (PcdGet32 (PcdRiscVEmbeddedFvBase), PcdGet32 (PcdRiscVEmbeddedFvSize));
+  DEBUG ((DEBUG_INFO, "Platform builds Embedded FV at %x, size %x.\n",
+    PcdGet32 (PcdRiscVEmbeddedFvBase),
+    PcdGet32 (PcdRiscVEmbeddedFvSize)));
+
+  //
+  // Let PEI know about the ESP Ramdisk FV so it can find the Embedded image
+  //
+  PeiServicesInstallFvInfoPpi (
+    NULL,
+    (VOID *)(UINTN) PcdGet32 (PcdRiscVEmbeddedFvBase),
+    PcdGet32 (PcdRiscVEmbeddedFvSize),
+    NULL,
+    NULL
+    );
+
   return EFI_SUCCESS;
 }

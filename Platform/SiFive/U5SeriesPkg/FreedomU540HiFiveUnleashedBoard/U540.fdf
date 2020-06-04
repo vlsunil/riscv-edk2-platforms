@@ -34,6 +34,10 @@ FV = FVMAIN_COMPACT
 
 !include VarStore.fdf.inc
 
+$(ESP_OFFSET)|$(ESP_SIZE)
+gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvBase|gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvSize
+FV = EMBEDDED_ESP_FV
+
 ################################################################################
 
 [FV.SECFV]
@@ -145,6 +149,9 @@ INF  UefiCpuPkg/CpuIo2Dxe/CpuIo2Dxe.inf
 INF  MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
 INF  MdeModulePkg/Universal/Metronome/Metronome.inf
 INF  EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe.inf
+## RAMDISK
+INF  MdeModulePkg/Universal/Disk/RamDiskDxe/RamDiskDxe.inf
+INF  FatPkg/EnhancedFatDxe/Fat.inf
 
 # RISC-V Platform Drivers
 INF  Platform/SiFive/U5SeriesPkg/Universal/Dxe/RamFvbServicesRuntimeDxe/FvbServicesRuntimeDxe.inf
@@ -245,6 +252,28 @@ FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
    }
  }
 
+################################################################################
+[FV.EMBEDDED_ESP_FV]
+BlockSize          = 0x10000
+FvAlignment        = 16
+ERASE_POLARITY     = 1
+MEMORY_MAPPED      = TRUE
+STICKY_WRITE       = TRUE
+LOCK_CAP           = TRUE
+LOCK_STATUS        = TRUE
+WRITE_DISABLED_CAP = TRUE
+WRITE_ENABLED_CAP  = TRUE
+WRITE_STATUS       = TRUE
+WRITE_LOCK_CAP     = TRUE
+WRITE_LOCK_STATUS  = TRUE
+READ_DISABLED_CAP  = TRUE
+READ_ENABLED_CAP   = TRUE
+READ_STATUS        = TRUE
+READ_LOCK_CAP      = TRUE
+READ_LOCK_STATUS   = TRUE
+
+INF RuleOverride=RAMDISK Silicon/RISC-V/ProcessorPkg/Universal/EspRamdisk/EspRamdisk.inf
+
 [Rule.Common.SEC]
   FILE SEC = $(NAMED_GUID) RELOCS_STRIPPED {
     PE32     PE32   Align=4K $(INF_OUTPUT)/$(MODULE_NAME).efi
@@ -324,4 +353,9 @@ FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
   FILE FREEFORM = $(NAMED_GUID) {
     RAW ACPI               |.acpi
     RAW ASL                |.aml
+  }
+
+[Rule.Common.USER_DEFINED.RAMDISK]
+  FILE FREEFORM = $(NAMED_GUID) {
+    RAW BIN                |.iso
   }
