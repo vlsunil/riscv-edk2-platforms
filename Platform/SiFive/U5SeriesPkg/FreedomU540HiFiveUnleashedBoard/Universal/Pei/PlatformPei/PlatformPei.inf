@@ -62,6 +62,8 @@
   gEfiMdePkgTokenSpaceGuid.PcdGuidedExtractHandlerTableAddress
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVDxeFvBase
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVDxeFvSize
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvBase
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvSize
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdNumberofU5Cores
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdE5MCSupported
 

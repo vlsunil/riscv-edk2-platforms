@@ -31,6 +31,8 @@
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVPeiFvSize|0x0|UINT32|0x00001003
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVDxeFvBase|0x0|UINT32|0x00001004
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVDxeFvSize|0x0|UINT32|0x00001005
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvBase|0x0|UINT32|0x00001007
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvSize|0x0|UINT32|0x00001008
 
 #
 # Definition of EFI Variable region
