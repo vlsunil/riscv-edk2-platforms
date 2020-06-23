@@ -38,6 +38,7 @@
   UefiCpuPkg/UefiCpuPkg.dec
 
 [Guids]
+  gEfiFirmwareFileSystem3Guid
   gEfiMemoryTypeInformationGuid
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid
 

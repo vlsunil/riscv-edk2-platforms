@@ -59,7 +59,7 @@ PeiFvInitialization (
   // Let PEI know about the ESP Ramdisk FV so it can find the Embedded image
   //
   PeiServicesInstallFvInfoPpi (
-    NULL,
+    &gEfiFirmwareFileSystem3Guid,
     (VOID *)(UINTN) PcdGet32 (PcdRiscVEmbeddedFvBase),
     PcdGet32 (PcdRiscVEmbeddedFvSize),
     NULL,
