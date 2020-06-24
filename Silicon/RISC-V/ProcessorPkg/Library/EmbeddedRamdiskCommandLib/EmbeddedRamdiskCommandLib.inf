@@ -1,0 +1,51 @@
+##  @file
+# TODO
+#
+# Copyright (c) 2020, Hewlett Packard Enterprise Development LP. All rights reserved.<BR>
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 1.27
+  BASE_NAME                      = EmbeddedRamdiskCommandLib
+  FILE_GUID                      = cbc9b854-3832-4524-8c7f-c0b882e37a03
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = NULL|UEFI_APPLICATION UEFI_DRIVER
+  CONSTRUCTOR                    = EmbeddedRamdiskCommandLibConstructor
+  DESTRUCTOR                     = EmbeddedRamdiskCommandLibDestructor
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 ARM AARCH64 RISCV64
+#
+
+[Sources.common]
+  EmbeddedRamdiskCommandLib.c
+  EmbeddedRamdiskCommandLib.uni
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  Silicon/RISC-V/ProcessorPkg/RiscVProcessorPkg.dec
+
+[LibraryClasses]
+  DebugLib
+  DevicePathLib
+  HiiLib
+  MemoryAllocationLib
+  ShellCommandLib
+  ShellLib
+  UefiBootServicesTableLib
+
+[Protocols]
+  gEfiRamDiskProtocolGuid                         ## SOMETIMES_CONSUMES
+
+[Guids]
+  gShellEmbeddedRamdiskHiiGuid                    ## SOMETIMES_CONSUMES ## HII
+  gEdkiiMemoryProfileGuid                         ## SOMETIMES_CONSUMES ## GUID
+  gEfiVirtualCdGuid                               ## SOMETIMES_CONSUMES ## GUID
+  gEfiVirtualDiskGuid                             ## SOMETIMES_CONSUMES ## GUID

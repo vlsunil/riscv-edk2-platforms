@@ -1,0 +1,36 @@
+// /**
+//
+// Copyright (c) 2020, Hewlett Packard Enterprise Development LP. All rights reserved.<BR>
+// SPDX-License-Identifier: BSD-2-Clause-Patent
+//
+// Module Name:
+//
+// EmbeddedRamdiskCommandLib.uni
+//
+// Abstract:
+//
+// String definitions for 'embeddedramdisk' UEFI Shell command
+//
+// **/
+
+/=#
+
+#langdef   en-US "english"
+
+#string STR_GEN_PROBLEM           #language en-US "%H%s%N: Unknown flag - '%H%s%N'\r\n"
+#string STR_GEN_NO_VALUE          #language en-US "%H%s%N: Missing argument for flag - '%H%s%N'\r\n"
+#string STR_GEN_PARAM_INV         #language en-US "%H%s%N: Invalid argument - '%H%s%N'\r\n"
+#string STR_GEN_NOT_FOUND         #language en-US "%H%s%N: Couldn't find disk image with that GUID - '%H%s%N'\r\n"
+
+#string STR_GET_HELP_EMBEDDED_RAMDISK #language en-US ""
+".TH vol 0 "Mounts a disk image embedded in the FW image as a ramdisk."\r\n"
+".SH NAME\r\n"
+"Mounts a disk image embedded in the FW image as a ramdisk.\r\n"
+".SH SYNOPSIS\r\n"
+" \r\n"
+"embeddedramdisk <GUID>\r\n"
+"initrd -u\r\n"
+".SH OPTIONS\r\n"
+" \r\n"
+"  FileName    - Specifies a file to register as initrd.\r\n"
+"  -u          - Unregisters any previously registered initrd files.\r\n"
