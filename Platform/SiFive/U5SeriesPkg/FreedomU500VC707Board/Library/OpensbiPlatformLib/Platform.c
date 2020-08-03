@@ -23,11 +23,12 @@
 #include <sbi_utils/sys/clint.h>
 #include <U5Clint.h>
 
-#define U500_HART_COUNT         FixedPcdGet32(PcdHartCount)
-#define U500_HART_STACK_SIZE    FixedPcdGet32(PcdOpenSbiStackSize)
-#define U500_BOOT_HART_ID       FixedPcdGet32(PcdBootHartId)
+#define U500_HART_COUNT          FixedPcdGet32(PcdHartCount)
+#define U500_BOOTABLE_HART_COUNT FixedPcdGet32(PcdBootableHartNumber)
+#define U500_HART_STACK_SIZE     FixedPcdGet32(PcdOpenSbiStackSize)
+#define U500_BOOT_HART_ID        FixedPcdGet32(PcdBootHartId)
 
-#define U500_SYS_CLK            FixedPcdGet32(PcdU5PlatformSystemClock)
+#define U500_SYS_CLK             FixedPcdGet32(PcdU5PlatformSystemClock)
 
 #define U500_PLIC_ADDR              0xc000000
 #define U500_PLIC_NUM_SOURCES       0x35
@@ -193,7 +194,7 @@ static int U500_timer_init(bool cold_boot)
  * The U500 SoC has 4 HARTs, Boot HART ID is determined by
  * PcdBootHartId.
  */
-static u32 fu500_hart_index2id[U500_HART_COUNT] = {0, 1, 2, 3};
+static u32 u500_hart_index2id[U500_BOOTABLE_HART_COUNT] = {0, 1, 2, 3};
 
 static int U500_system_reset(u32 type)
 {
@@ -225,8 +226,8 @@ const struct sbi_platform platform = {
     .platform_version   = SBI_PLATFORM_VERSION(0x0001, 0x0000), // SBI Platform version 1.0
     .name               = "SiFive Freedom U500",
     .features           = SBI_PLATFORM_DEFAULT_FEATURES,
-    .hart_count         = U500_HART_COUNT,
-    .hart_index2id      = fu500_hart_index2id,
+    .hart_count         = U500_BOOTABLE_HART_COUNT,
+    .hart_index2id      = u500_hart_index2id,
     .hart_stack_size    = U500_HART_STACK_SIZE,
     .platform_ops_addr  = (unsigned long)&platform_ops
 };

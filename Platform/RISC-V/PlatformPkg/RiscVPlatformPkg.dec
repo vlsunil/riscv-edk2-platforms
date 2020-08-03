@@ -55,14 +55,18 @@
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdHartCount|0|UINT32|0x00001023
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId|0|UINT32|0x00001024
 #
+# The bootable hart core number, which is incorporate with OpenSBI platform hart_index2id value.
+#
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartNumber|0|UINT32|0x00001025
+#
 # Definitions for OpenSbi
 #
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamBase|0|UINT32|0x00001025
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamSize|0|UINT32|0x00001026
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdOpenSbiStackSize|0|UINT32|0x00001027
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamBase|0|UINT32|0x00001028
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamSize|0|UINT32|0x00001029
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdPeiCorePrivilegeMode|0|UINT32|0x00001030
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamBase|0|UINT32|0x00001100
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamSize|0|UINT32|0x00001101
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdOpenSbiStackSize|0|UINT32|0x00001102
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamBase|0|UINT32|0x00001103
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamSize|0|UINT32|0x00001104
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdPeiCorePrivilegeMode|0|UINT32|0x00001105
 
 [PcdsPatchableInModule]
 

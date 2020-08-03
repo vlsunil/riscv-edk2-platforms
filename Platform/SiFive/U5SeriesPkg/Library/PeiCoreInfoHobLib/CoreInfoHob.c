@@ -52,20 +52,26 @@ CreateU5MCCoreplexProcessorSpecificDataHob (
   MCSupport = PcdGetBool (PcdE5MCSupported);
   if (MCSupport == TRUE) {
     Status = CreateE51CoreProcessorSpecificDataHob (ParentCoreGuid, UniqueId, HartIdNumber, FALSE, &GuidHobData);
-    if (EFI_ERROR (Status)) {
+    if (EFI_ERROR (Status) && Status != EFI_UNSUPPORTED) {
       DEBUG ((DEBUG_ERROR, "Faile to build U5MC processor informatino HOB\n"));
       ASSERT (FALSE);
+    } else {
+      if (!EFI_ERROR (Status)) {
+        DEBUG((DEBUG_INFO, "Support E5 Monitor core on U5 platform, HOB at address 0x%x\n", GuidHobData));
+      }
     }
     HartIdNumber ++;
-    DEBUG ((DEBUG_INFO, "Support E5 Monitor core on U5 platform, HOB at address 0x%x\n", GuidHobData));
   }
   for (; HartIdNumber < (FixedPcdGet32 (PcdNumberofU5Cores) + (UINT32)MCSupport); HartIdNumber ++) {
     Status = CreateU54CoreProcessorSpecificDataHob (ParentCoreGuid, UniqueId, HartIdNumber, (HartIdNumber == FixedPcdGet32 (PcdBootHartId))? TRUE: FALSE, &GuidHobData);
-    if (EFI_ERROR (Status)) {
+    if (EFI_ERROR (Status) && Status != EFI_UNSUPPORTED) {
       DEBUG ((DEBUG_ERROR, "Faile to build U5MC processor informatino HOB\n"));
       ASSERT (FALSE);
+    }  else {
+      if (!EFI_ERROR (Status)) {
+        DEBUG ((DEBUG_INFO, "Support U5 application core on U5 platform, HOB Data at address 0x%x\n", GuidHobData));
+      }
     }
-    DEBUG ((DEBUG_INFO, "Support U5 application core on U5 platform, HOB Data at address 0x%x\n", GuidHobData));
   }
   DEBUG ((DEBUG_INFO, "Support %d U5 application cores on U5 platform\n", HartIdNumber - (UINT32)MCSupport));
 

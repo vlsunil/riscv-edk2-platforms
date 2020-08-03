@@ -40,6 +40,7 @@
   @param  GuidHobdata            Pointer to RISC_V_PROCESSOR_SPECIFIC_HOB_DATA.
 
   @return EFI_SUCCESS     The PEIM initialized successfully.
+          EFI_UNSUPPORTED HART is ignored by platform.
 
 **/
 EFI_STATUS
@@ -68,7 +69,10 @@ CreateU54CoreProcessorSpecificDataHob (
   DEBUG ((DEBUG_INFO, "    Firmware Context is at 0x%x.\n", FirmwareContext));
   FirmwareContextHartSpecific = FirmwareContext->HartSpecific[HartId];
   DEBUG ((DEBUG_INFO, "    Firmware Context Hart specific is at 0x%x.\n", FirmwareContextHartSpecific));
-
+  if (FirmwareContextHartSpecific == NULL) {
+    DEBUG ((DEBUG_INFO, "    This hart: %d is ignored by platform.\n", HartId));
+    return EFI_UNSUPPORTED;
+  }
   //
   // Build up RISC_V_PROCESSOR_SPECIFIC_HOB_DATA.
   //

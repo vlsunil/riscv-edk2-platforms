@@ -47,6 +47,7 @@
 [FixedPcd]
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdHartCount
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartNumber
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdOpenSbiStackSize
 
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdU5UartBase

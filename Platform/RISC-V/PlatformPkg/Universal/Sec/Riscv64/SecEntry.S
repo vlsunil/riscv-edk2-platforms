@@ -139,7 +139,7 @@ _start_warm:
   csrw  CSR_MIE, zero
   csrw  CSR_MIP, zero
 
-  li    s7, FixedPcdGet32 (PcdHartCount)
+  li    s7, FixedPcdGet32 (PcdBootableHartNumber)
   li    s8, FixedPcdGet32 (PcdOpenSbiStackSize)
   la    a4, platform
 
@@ -171,8 +171,16 @@ _start_warm:
 2:
   add   s6, a4, zero
 3:
-  bge   s6, s7, _start_hang
-
+  /* Jump to UninitializedHartWait for the non-bootable harts.
+     Be aware that the stack and scratch is not set
+     at this moment for this hart even the resource
+     is preserved eariler for it.
+  */
+  bltu  s6, s7, 4f
+  csrr  a0, CSR_MHARTID
+  j _uninitialized_hart_wait
+4:
+  li    s7, FixedPcdGet32 (PcdHartCount)
   /* Find the scratch space for this hart
    *
    * Scratch buffer is on the top of stack buffer
@@ -199,7 +207,7 @@ _start_warm:
   sub   tp, tp, a5
 
   /* Setup stack */
-  add sp, tp, zero
+  add   sp, tp, zero
 
   /* Setup stack for the Hart executing EFI to top of temporary ram*/
   csrr  a6, CSR_MHARTID
@@ -223,7 +231,10 @@ _start_warm:
   /* Call library constructors before jup to SEC core */
   call  ProcessLibraryConstructorList
 
-  /* jump to SEC Core C */
+  /* Jump to SEC Core C
+   * a0: HART ID
+   * a1: Scratch pointer
+  */
   csrr  a0, CSR_MHARTID
   csrr  a1, CSR_MSCRATCH
   call  SecCoreStartUpWithStack
@@ -258,11 +269,11 @@ _hartid_to_scratch:
   la    s2, platform
 #if __riscv_xlen == 64
   lwu   s0, SBI_PLATFORM_HART_STACK_SIZE_OFFSET(s2)
-  lwu   s2, SBI_PLATFORM_HART_COUNT_OFFSET(s2)
 #else
   lw    s0, SBI_PLATFORM_HART_STACK_SIZE_OFFSET(s2)
-  lw    s2, SBI_PLATFORM_HART_COUNT_OFFSET(s2)
 #endif
+  li    s2, FixedPcdGet32 (PcdHartCount)
+
   mul   s2, s2, s0
   li    s1, FixedPcdGet32 (PcdScratchRamBase)
   add   s1, s1, s2
@@ -282,6 +293,15 @@ _hartid_to_scratch:
 _start_hang:
   wfi
   j     _start_hang
+
+  /*
+   * Uninitialized hart comes here and wait
+   * for the further process.
+   * a0: hart ID.
+  */
+_uninitialized_hart_wait:
+  wfi
+  j     _uninitialized_hart_wait
 
   .align 3
   .section .entry, "ax", %progbits

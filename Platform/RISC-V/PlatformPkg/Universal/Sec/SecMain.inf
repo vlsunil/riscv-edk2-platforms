@@ -60,9 +60,10 @@
 
 [Pcd]
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdHartCount
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartNumber
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdFwStartAddress
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdFwEndAddress
-  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdHartCount
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdOpenSbiStackSize
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamBase
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamSize

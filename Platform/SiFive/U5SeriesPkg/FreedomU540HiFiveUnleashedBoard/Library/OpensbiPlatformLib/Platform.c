@@ -23,9 +23,10 @@
 #include <sbi_utils/sys/clint.h>
 #include <U5Clint.h>
 
-#define U540_HART_COUNT         FixedPcdGet32(PcdHartCount)
-#define U540_HART_STACK_SIZE    FixedPcdGet32(PcdOpenSbiStackSize)
-#define U540_BOOT_HART_ID       FixedPcdGet32(PcdBootHartId)
+#define U540_HART_COUNT          FixedPcdGet32(PcdHartCount)
+#define U540_BOOTABLE_HART_COUNT FixedPcdGet32(PcdBootableHartNumber)
+#define U540_HART_STACK_SIZE     FixedPcdGet32(PcdOpenSbiStackSize)
+#define U540_BOOT_HART_ID        FixedPcdGet32(PcdBootHartId)
 
 #define U540_SYS_CLK              FixedPcdGet32(PcdU5PlatformSystemClock)
 
@@ -62,33 +63,16 @@ static struct clint_data clint = {
 
 static void U540_modify_dt(void *fdt)
 {
-    u32 i, size;
-    int chosen_offset, err;
-    int cpu_offset;
-    char cpu_node[32] = "";
-    const char *mmu_type;
+	fdt_cpu_fixup(fdt);
 
-    for (i = 0; i < U540_HART_COUNT; i++) {
-        sbi_sprintf(cpu_node, "/cpus/cpu@%d", i);
-        cpu_offset = fdt_path_offset(fdt, cpu_node);
-        mmu_type = fdt_getprop(fdt, cpu_offset, "mmu-type", NULL);
-        if (mmu_type && (!AsciiStrCmp(mmu_type, "riscv,sv39") ||
-            !AsciiStrCmp(mmu_type,"riscv,sv48")))
-            continue;
-        else
-            fdt_setprop_string(fdt, cpu_offset, "status", "masked");
-        memset(cpu_node, 0, sizeof(cpu_node));
-    }
-    size = fdt_totalsize(fdt);
-    err = fdt_open_into(fdt, fdt, size + 256);
-    if (err < 0)
-        sbi_printf("Device Tree can't be expanded to accmodate new node");
+	fdt_fixups(fdt);
 
-    chosen_offset = fdt_path_offset(fdt, "/chosen");
-    fdt_setprop_string(fdt, chosen_offset, "stdout-path",
-               "/soc/serial@10010000:115200");
-
-    fdt_plic_fixup(fdt, "riscv,plic0");
+	/*
+	 * SiFive Freedom U540 has an erratum that prevents S-mode software
+	 * to access a PMP protected region using 1GB page table mapping, so
+	 * always add the no-map attribute on this platform.
+	 */
+	fdt_reserved_memory_nomap_fixup(fdt);
 }
 
 static int U540_final_init(bool cold_boot)
@@ -193,7 +177,7 @@ static int U540_timer_init(bool cold_boot)
  * The U540 SoC has 5 HARTs, Boot HART ID is determined by
  * PcdBootHartId.
  */
-static u32 U540_hart_index2id[U540_HART_COUNT] = {0, 1, 2, 3, 4};
+static u32 U540_hart_index2id[U540_BOOTABLE_HART_COUNT] = {1, 2, 3, 4};
 
 static int U540_system_reset(u32 type)
 {
@@ -225,7 +209,7 @@ const struct sbi_platform platform = {
     .platform_version   = SBI_PLATFORM_VERSION(0x0001, 0x0000), // SBI Platform version 1.0
     .name               = "SiFive Freedom U540",
     .features           = SBI_PLATFORM_DEFAULT_FEATURES,
-    .hart_count         = U540_HART_COUNT,
+    .hart_count         = U540_BOOTABLE_HART_COUNT,
     .hart_index2id      = U540_hart_index2id,
     .hart_stack_size    = U540_HART_STACK_SIZE,
     .platform_ops_addr  = (unsigned long)&platform_ops

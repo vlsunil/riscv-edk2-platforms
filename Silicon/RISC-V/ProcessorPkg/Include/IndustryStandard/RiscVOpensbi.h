@@ -18,8 +18,9 @@
 #include <sbi/sbi_platform.h>
 #include <sbi/sbi_scratch.h>
 #include <sbi/sbi_types.h>
+#include <sbi/sbi_hartmask.h>
 
-#define RISC_V_MAX_HART_SUPPORTED 16
+#define RISC_V_MAX_HART_SUPPORTED SBI_HARTMASK_MAX_BITS
 
 typedef
 VOID
