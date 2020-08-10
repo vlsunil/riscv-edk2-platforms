@@ -46,8 +46,8 @@ PublishPeiMemory (
   EFI_PHYSICAL_ADDRESS        MemoryBase;
   UINT64                      MemorySize;
 
-  MemoryBase = 0x80000000UL + 0x1000000UL;
-  MemorySize = 0x40000000UL - 0x1000000UL; //1GB - 16MB
+  MemoryBase = 0x80000000UL + 0x07000000UL;
+  MemorySize = 0x40000000UL - 0x07000000UL; //1GB - 16MB
 
   DEBUG((DEBUG_INFO, "%a: MemoryBase:0x%x MemorySize:%x\n", __FUNCTION__, MemoryBase, MemorySize));
 
@@ -69,6 +69,6 @@ InitializeRamRegions (
   VOID
   )
 {
-  AddMemoryRangeHob(0x81000000UL, 0x81000000UL + 0x3F000000UL);
-
+  //AddMemoryRangeHob(0x81000000UL, 0x81000000UL + 0x3F000000UL);
+  AddMemoryRangeHob(0x87000000UL, 0x87000000UL + 0x40000000UL - 0x07000000UL);
 }
