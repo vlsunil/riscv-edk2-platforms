@@ -7,13 +7,13 @@
 #
 # Platform definitions
 #
-!include U540.fdf.inc
+!include RiscvVirt.fdf.inc
 
 #
 # Build the variable store and the firmware code as one unified flash device
 # image.
 #
-[FD.U540]
+[FD.RiscvVirt]
 BaseAddress   = $(FW_BASE_ADDRESS)
 Size          = $(FW_SIZE)
 ErasePolarity = 1
@@ -33,10 +33,6 @@ gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVDxeFvBase|gUefiRiscVPlatformPkgToken
 FV = FVMAIN_COMPACT
 
 !include VarStore.fdf.inc
-
-$(ESP_OFFSET)|$(ESP_SIZE)
-gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvBase|gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRiscVEmbeddedFvSize
-FV = EMBEDDED_ESP_FV
 
 ################################################################################
 
@@ -103,7 +99,7 @@ INF  MdeModulePkg/Universal/StatusCodeHandler/Pei/StatusCodeHandlerPei.inf
 INF  MdeModulePkg/Core/DxeIplPeim/DxeIpl.inf
 
 # RISC-V Platform PEI Driver
-INF  Platform/SiFive/U5SeriesPkg/FreedomU540HiFiveUnleashedBoard/Universal/Pei/PlatformPei/PlatformPei.inf
+INF  Platform/Qemu/RiscvVirt/Universal/Pei/PlatformPei/PlatformPei.inf
 
 INF  Silicon/RISC-V/ProcessorPkg/Universal/FdtPei/FdtPei.inf
 
@@ -253,26 +249,6 @@ FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
  }
 
 ################################################################################
-[FV.EMBEDDED_ESP_FV]
-BlockSize          = 0x10000
-FvAlignment        = 16
-ERASE_POLARITY     = 1
-MEMORY_MAPPED      = TRUE
-STICKY_WRITE       = TRUE
-LOCK_CAP           = TRUE
-LOCK_STATUS        = TRUE
-WRITE_DISABLED_CAP = TRUE
-WRITE_ENABLED_CAP  = TRUE
-WRITE_STATUS       = TRUE
-WRITE_LOCK_CAP     = TRUE
-WRITE_LOCK_STATUS  = TRUE
-READ_DISABLED_CAP  = TRUE
-READ_ENABLED_CAP   = TRUE
-READ_STATUS        = TRUE
-READ_LOCK_CAP      = TRUE
-READ_LOCK_STATUS   = TRUE
-
-INF RuleOverride=RAMDISK Silicon/RISC-V/ProcessorPkg/Universal/EspRamdisk/EspRamdisk.inf
 
 [Rule.Common.SEC]
   FILE SEC = $(NAMED_GUID) RELOCS_STRIPPED {
@@ -353,9 +329,4 @@ INF RuleOverride=RAMDISK Silicon/RISC-V/ProcessorPkg/Universal/EspRamdisk/EspRam
   FILE FREEFORM = $(NAMED_GUID) {
     RAW ACPI               |.acpi
     RAW ASL                |.aml
-  }
-
-[Rule.Common.USER_DEFINED.RAMDISK]
-  FILE FREEFORM = $(NAMED_GUID) {
-    RAW BIN                |.iso
   }

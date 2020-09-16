@@ -162,7 +162,7 @@
 #
 # OpenSBi Platform Library
 #
-  RiscVOpensbiPlatformLib|Platform/SiFive/U5SeriesPkg/FreedomU540HiFiveUnleashedBoard/Library/OpensbiPlatformLib/OpensbiPlatformLib.inf
+  RiscVOpensbiPlatformLib|Platform/Qemu/RiscvVirt/Library/OpensbiPlatformLib/OpensbiPlatformLib.inf
 
 [LibraryClasses.common.PEI_CORE]
   HobLib|MdePkg/Library/PeiHobLib/PeiHobLib.inf
@@ -386,7 +386,7 @@
     NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
   }
 
-  Platform/SiFive/U5SeriesPkg/FreedomU540HiFiveUnleashedBoard/Universal/Pei/PlatformPei/PlatformPei.inf {
+  Platform/Qemu/RiscvVirt/Universal/Pei/PlatformPei/PlatformPei.inf {
     <LibraryClasses>
       PcdLib|MdePkg/Library/PeiPcdLib/PeiPcdLib.inf
   }

@@ -32,8 +32,6 @@ DEFINE FVMAIN_OFFSET     = 0x00100000 # Must be power of 2 for PMP setting
 DEFINE FVMAIN_SIZE       = 0x0018C000
 DEFINE VARS_OFFSET       = 0x007E0000
 DEFINE VARS_SIZE         = 0x00020000
-DEFINE ESP_OFFSET        = 0x00800000
-DEFINE ESP_SIZE          = 0X06000000 # 96M for linux.iso
 
 SET gUefiRiscVPlatformPkgTokenSpaceGuid.PcdVariableFdBaseAddress = $(FW_BASE_ADDRESS) + $(VARS_OFFSET)
 SET gUefiRiscVPlatformPkgTokenSpaceGuid.PcdVariableFdSize        = $(VARS_SIZE)
