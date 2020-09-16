@@ -8,7 +8,7 @@
  */
 
 #include <libfdt.h>
-#include <platform_override.h>
+//#include <platform_override.h>
 #include <sbi/riscv_asm.h>
 #include <sbi_utils/fdt/fdt_fixup.h>
 
@@ -21,6 +21,18 @@
 #include <sbi_utils/timer/fdt_timer.h>
 #include <sbi_utils/ipi/fdt_ipi.h>
 #include <sbi_utils/reset/fdt_reset.h>
+
+struct platform_override {
+  const struct fdt_match *match_table;
+  u64 (*features)(const struct fdt_match *match);
+  u64 (*tlbr_flush_limit)(const struct fdt_match *match);
+  int (*early_init)(bool cold_boot, const struct fdt_match *match);
+  int (*final_init)(bool cold_boot, const struct fdt_match *match);
+  void (*early_exit)(const struct fdt_match *match);
+  void (*final_exit)(const struct fdt_match *match);
+  int (*system_reset)(u32 reset_type, const struct fdt_match *match);
+  int (*fdt_fixup)(void *fdt, const struct fdt_match *match);
+};
 
 extern const struct platform_override sifive_fu540;
 

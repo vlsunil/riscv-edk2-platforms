@@ -23,9 +23,9 @@ DEFINE CODE_BLOCKS       = 0x7E0
 DEFINE VARS_BLOCKS       = 0x20
 
 DEFINE SECFV_OFFSET      = 0x00000000
-DEFINE SECFV_SIZE        = 0x00020000
-DEFINE PEIFV_OFFSET      = 0x00020000
-DEFINE PEIFV_SIZE        = 0x00080000
+DEFINE SECFV_SIZE        = 0x00023000
+DEFINE PEIFV_OFFSET      = 0x00023000
+DEFINE PEIFV_SIZE        = 0x0007D000
 DEFINE SCRATCH_OFFSET    = 0x000a0000
 DEFINE SCRATCH_SIZE      = 0x00010000
 DEFINE FVMAIN_OFFSET     = 0x00100000 # Must be power of 2 for PMP setting
@@ -55,5 +55,5 @@ SET gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartNumber          = 4      
                                                                                     # platform hart_index2id value.
 SET gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdNumberofU5Cores       = 4          # Total U5 cores enabled on U540 platform
 SET gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdE5MCSupported         = True       # E51 MC exists.
-SET gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdU5UartBase            = 0x10010000 # Serial port base address
+SET gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdU5UartBase            = 0x10000000 # Serial port base address
 SET gUefiRiscVPlatformPkgTokenSpaceGuid.PcdPeiCorePrivilegeMode        = 1          # Set PeiCore to S-Mode

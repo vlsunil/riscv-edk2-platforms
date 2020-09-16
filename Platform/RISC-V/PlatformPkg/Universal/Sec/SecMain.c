@@ -687,6 +687,8 @@ VOID EFIAPI SecCoreStartUpWithStack(
   UINT64 NonBootHartMessageLockValue;
   EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC *HartFirmwareContext;
 
+  ASSERT(4 == 5);
+
   //
   // Setup EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC for each hart.
   //
