@@ -37,7 +37,7 @@ FV = FVMAIN_COMPACT
 ################################################################################
 
 [FV.SECFV]
-BlockSize          = 0x1000
+BlockSize          = 0x2000
 FvAlignment        = 16
 ERASE_POLARITY     = 1
 MEMORY_MAPPED      = TRUE
