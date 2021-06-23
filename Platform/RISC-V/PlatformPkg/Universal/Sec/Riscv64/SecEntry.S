@@ -18,6 +18,14 @@
 
 #include <SecMain.h>
 
+.macro	MOV_5R __d0, __s0, __d1, __s1, __d2, __s2, __d3, __s3, __d4, __s4
+	add	\__d0, \__s0, zero
+	add	\__d1, \__s1, zero
+	add	\__d2, \__s2, zero
+	add	\__d3, \__s3, zero
+	add	\__d4, \__s4, zero
+.endm
+
 .text
 .align 3
 
@@ -31,6 +39,24 @@ ASM_FUNC (_ModuleEntryPoint)
 
   li    ra, 0
   call  _reset_regs
+
+  /* Setup temporary trap handler */
+  la	s4, _start_hang
+  csrw	CSR_MTVEC, s4
+
+  li    s4, FixedPcdGet32(PcdTemporaryRamBase)
+  li    s5, FixedPcdGet32(PcdTemporaryRamSize)
+  add   sp, s4, s5
+
+  li    a0, FixedPcdGet32 (PcdBootHartId)
+
+  /*
+   * a1 will have DTB address
+   */
+
+  MOV_5R	s0, a0, s1, a1, s2, a2, s3, a3, s4, a4
+  call	fw_platform_init
+  MOV_5R	a0, s0, a1, s1, a2, s2, a3, s3, a4, s4
 
   /* Preload HART details
    * s7 -> HART Count
